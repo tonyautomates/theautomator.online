@@ -1,27 +1,7 @@
 "use client";
 
-import * as React from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-
-// Needed to prevent the next route from rendering before the exit animation finishes
-import { LayoutRouterContext } from "next/dist/shared/lib/app-router-context.shared-runtime";
-
-function FrozenRouter({ children }: { children: React.ReactNode }) {
-  const context = React.useContext(LayoutRouterContext);
-
-  // Freeze once per mount (intentionally NOT updating on route change)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const frozen = React.useMemo(() => context, []);
-
-  return (
-    <LayoutRouterContext.Provider
-      value={frozen as React.ContextType<typeof LayoutRouterContext>}
-    >
-      {children}
-    </LayoutRouterContext.Provider>
-  );
-}
 
 export default function TransitionProvider({
   children,
@@ -29,28 +9,25 @@ export default function TransitionProvider({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const reduceMotion = useReducedMotion();
-
-  if (reduceMotion) return <>{children}</>;
 
   return (
-    <AnimatePresence mode="sync">
-  <motion.div
-    key={pathname}
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    transition={{
-      duration: 0.12,
-      ease: "linear",
-    }}
-    style={{
-      backgroundColor: "#FAFAF7",
-      minHeight: "100vh",
-    }}
-  >
-    {children}
-  </motion.div>
-</AnimatePresence>
+    <div
+      style={{
+        backgroundColor: "#FAFAF7",
+        minHeight: "100vh",
+      }}
+    >
+      <AnimatePresence mode="sync">
+        <motion.div
+          key={pathname}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.15 }}
+        >
+          {children}
+        </motion.div>
+      </AnimatePresence>
+    </div>
   );
 }

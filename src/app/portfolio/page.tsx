@@ -1,16 +1,7 @@
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-
-
-export default function Home() {
+export default function Portfolio() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      
-      
-      {/* Push footer to bottom */}
-      <div className="flex-1"></div>
-      <Footer />
-    </div>
+    <main className="min-h-screen flex flex-col items-center justify-center">
+      <h1 className="text-xl font-semibold">Portfolio</h1>
+    </main>
   );
 }

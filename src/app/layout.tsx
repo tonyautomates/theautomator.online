@@ -1,6 +1,8 @@
 import "./globals.css";
 import { Montserrat } from "next/font/google";
 import TransitionProvider from "./TransitionProvider";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -15,9 +17,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={montserrat.className}>
+        <Header />
+
         <TransitionProvider>
           {children}
         </TransitionProvider>
+
+        <Footer />
       </body>
     </html>
   );

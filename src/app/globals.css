@@ -1,14 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@import "tailwindcss";
 
 html,
 body {
   margin: 0;
   padding: 0;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
   background-color: #2F6BFF; /* your header blue */
   overscroll-behavior: none;
   -webkit-overflow-scrolling: touch;
